@@ -1,0 +1,37 @@
+{
+  "info": {
+    "name": "WicketLab Cricket Score API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key":"baseUrl","value":"http://localhost:8080/api"},
+    {"key":"matchId","value":"1"},
+    {"key":"inningsId","value":"1"}
+  ],
+  "item": [
+    {"name":"Matches","item":[
+      {"name":"List matches","request":{"method":"GET","url":"{{baseUrl}}/matches"}},
+      {"name":"Get match","request":{"method":"GET","url":"{{baseUrl}}/matches/{{matchId}}"}},
+      {"name":"Create match","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"India vs Australia\",\"venue\":\"Wankhede Stadium\",\"teamA\":1,\"teamB\":2,\"totalOvers\":20}"},"url":"{{baseUrl}}/matches"}},
+      {"name":"Start match","request":{"method":"POST","url":"{{baseUrl}}/matches/{{matchId}}/start"}},
+      {"name":"Start innings","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"battingTeamId\":1,\"striker\":\"Rohit Sharma\",\"nonStriker\":\"Virat Kohli\",\"bowler\":\"Pat Cummins\"}"},"url":"{{baseUrl}}/matches/{{matchId}}/innings"}},
+      {"name":"Finish match","request":{"method":"POST","url":"{{baseUrl}}/matches/{{matchId}}/finish"}},
+      {"name":"Delete match","request":{"method":"DELETE","url":"{{baseUrl}}/matches/{{matchId}}"}}
+    ]},
+    {"name":"Teams and players","item":[
+      {"name":"List teams","request":{"method":"GET","url":"{{baseUrl}}/teams"}},
+      {"name":"Create team","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Sri Lanka\",\"shortName\":\"SL\"}"},"url":"{{baseUrl}}/teams"}},
+      {"name":"List players","request":{"method":"GET","url":"{{baseUrl}}/players"}},
+      {"name":"Create player","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Sample Batter\",\"teamId\":1,\"role\":\"BATSMAN\"}"},"url":"{{baseUrl}}/players"}}
+    ]},
+    {"name":"Scoring","item":[
+      {"name":"Add a four","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"type\":\"RUN\",\"runs\":4,\"striker\":\"Virat Kohli\",\"bowler\":\"Pat Cummins\"}"},"url":"{{baseUrl}}/innings/{{inningsId}}/ball"}},
+      {"name":"Add wicket","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"type\":\"WICKET\",\"runs\":0,\"striker\":\"Virat Kohli\",\"bowler\":\"Pat Cummins\",\"wicketType\":\"BOWLED\"}"},"url":"{{baseUrl}}/innings/{{inningsId}}/ball"}},
+      {"name":"Add wide","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"type\":\"WIDE\",\"runs\":0,\"striker\":\"Virat Kohli\",\"bowler\":\"Pat Cummins\"}"},"url":"{{baseUrl}}/innings/{{inningsId}}/ball"}},
+      {"name":"Live score","request":{"method":"GET","url":"{{baseUrl}}/innings/{{inningsId}}/score"}},
+      {"name":"Scorecard","request":{"method":"GET","url":"{{baseUrl}}/innings/{{inningsId}}/scorecard"}},
+      {"name":"Ball events","request":{"method":"GET","url":"{{baseUrl}}/innings/{{inningsId}}/events"}},
+      {"name":"Complete innings","request":{"method":"POST","url":"{{baseUrl}}/innings/{{inningsId}}/complete"}}
+    ]}
+  ]
+}
